@@ -69,6 +69,8 @@ for:
 
           cd shell/apple
 
+          mkdir artifacts
+
     build_script:
       - sh: >-
           xcodebuild archive -workspace reicast.xcworkspace -scheme reicast-osx -archivePath flycast.xcarchive
@@ -77,6 +79,7 @@ for:
       - sh: >-
           mv flycast.xcarchive/Products/Applications/Flycast.app Flycast-$GIT_SHORT_HASH.app
 
+          7z a artifacts/Flycast-macOS-$GIT_SHORT_HASH.zip Flycast-$GIT_SHORT_HASH.app
+
     artifacts:
-      - path: shell/apple/Flycast-$GIT_SHORT_HASH.app
-        name: Flycast-macOS-$GIT_SHORT_HASH
+      - path: shell/apple/artifacts/Flycast-macOS-$GIT_SHORT_HASH.zip
