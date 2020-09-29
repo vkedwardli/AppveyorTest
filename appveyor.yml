@@ -1,5 +1,7 @@
 version: git-{branch}-{build}
-image: Visual Studio 2017
+image:
+  - Visual Studio 2017
+  - macos
 
 configuration:
 - fast
@@ -7,54 +9,54 @@ configuration:
 platform:
 - x64
 
-
 for:
-  matrix:
-    only:
-      - image: Visual Studio 2017
+  -
+    matrix:
+      only:
+        - image: Visual Studio 2017
 
-  before_build:
-    - cmd: >-
-        set BUILD_PATH=shell\linux
-        
-        set EXTRA_PATH=C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\mingw64\bin\
-        
-        set PATH=%EXTRA_PATH%;%PATH%
-        
-        if not exist %BUILD_PATH% (mkdir %BUILD_PATH%)
-       
-        cd %BUILD_PATH%
-        
-  build_script:
-    - cmd: >-
-        if "%CONFIGURATION%"=="fast" (mingw32-make -j2 platform=win32)
+    before_build:
+      - cmd: >-
+          set BUILD_PATH=shell\linux
+          
+          set EXTRA_PATH=C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\mingw64\bin\
+          
+          set PATH=%EXTRA_PATH%;%PATH%
+          
+          if not exist %BUILD_PATH% (mkdir %BUILD_PATH%)
+         
+          cd %BUILD_PATH%
+          
+    build_script:
+      - cmd: >-
+          if "%CONFIGURATION%"=="fast" (mingw32-make -j2 platform=win32)
 
-  after_build:
-    - cmd: >-      
-        if "%CONFIGURATION%"=="fast" (cd ..\.. && set EXE_PATH=shell\linux\nosym-reicast.exe)
-        
-        mkdir artifacts
-        
-        move %EXE_PATH% artifacts\flycast-win_%PLATFORM%-%CONFIGURATION%-%APPVEYOR_REPO_COMMIT%.exe
+    after_build:
+      - cmd: >-      
+          if "%CONFIGURATION%"=="fast" (cd ..\.. && set EXE_PATH=shell\linux\nosym-reicast.exe)
+          
+          mkdir artifacts
+          
+          move %EXE_PATH% artifacts\flycast-win_%PLATFORM%-%CONFIGURATION%-%APPVEYOR_REPO_COMMIT%.exe
 
-  artifacts:
-    - path: artifacts
-      name: flycast-win_$(PLATFORM)-$(CONFIGURATION)-$(APPVEYOR_REPO_COMMIT)
+    artifacts:
+      - path: artifacts
+        name: flycast-win_$(PLATFORM)-$(CONFIGURATION)-$(APPVEYOR_REPO_COMMIT)
 
-  deploy:
-    release: flycast-gdxsv-v$(appveyor_build_version)
-    description: 'DC emulator flycast for gdxsv'
-    provider: GitHub
-    auth_token:
-      secure: ENCRYPTED_GITHUB_ACCESS_TOKEN
-    artifact: artifacts\flycast-win_%PLATFORM%-%CONFIGURATION%-%APPVEYOR_REPO_COMMIT%.exe
-    draft: false
-    prerelease: false
-    on:
-      branch: master
-      APPVEYOR_REPO_TAG: true
+    deploy:
+      release: flycast-gdxsv-v$(appveyor_build_version)
+      description: 'DC emulator flycast for gdxsv'
+      provider: GitHub
+      auth_token:
+        secure: ENCRYPTED_GITHUB_ACCESS_TOKEN
+      artifact: artifacts\flycast-win_%PLATFORM%-%CONFIGURATION%-%APPVEYOR_REPO_COMMIT%.exe
+      draft: false
+      prerelease: false
+      on:
+        branch: master
+        APPVEYOR_REPO_TAG: true
 
-  matrix:
-    only:
-      - image: Visual Studio 2017
-
+  -
+    matrix:
+      only:
+        - image: macos
