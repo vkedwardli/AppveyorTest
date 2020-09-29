@@ -39,11 +39,11 @@ for:
           
           mkdir artifacts
           
-          move %EXE_PATH% artifacts\flycast-win_%PLATFORM%-%GIT_SHORT_HASH%.exe
+          move %EXE_PATH% artifacts\flycast-win_%PLATFORM%-%APPVEYOR_REPO_TAG_NAME%-%GIT_SHORT_HASH%.exe
 
     artifacts:
       - path: artifacts
-        name: flycast-win_$(PLATFORM)-$(GIT_SHORT_HASH)
+        name: flycast-win_$(PLATFORM)-$(APPVEYOR_REPO_TAG_NAME)-$(GIT_SHORT_HASH)
 
     deploy:
       release: $(APPVEYOR_REPO_TAG_NAME)
@@ -51,7 +51,7 @@ for:
       provider: GitHub
       auth_token:
         secure: FbT5TJnObEem2pmSSG85DLyLbsA/BwwDti//D4QVZ1H8zAFPSm5tKlXlIGMOHuVR
-      artifact: flycast-win_%PLATFORM%-%GIT_SHORT_HASH%.exe
+      artifact: flycast-win_$(PLATFORM)-$(APPVEYOR_REPO_TAG_NAME)-$(GIT_SHORT_HASH)
       draft: false
       prerelease: false
       on:
@@ -77,12 +77,12 @@ for:
 
     after_build:
       - sh: >-
-          mv flycast.xcarchive/Products/Applications/Flycast.app Flycast-$GIT_SHORT_HASH.app
+          mv flycast.xcarchive/Products/Applications/Flycast.app Flycast-$APPVEYOR_REPO_TAG_NAME-$GIT_SHORT_HASH.app
 
-          7z a artifacts/Flycast-macOS-$GIT_SHORT_HASH.zip Flycast-$GIT_SHORT_HASH.app
+          7z a artifacts/Flycast-macOS-$APPVEYOR_REPO_TAG_NAME-$GIT_SHORT_HASH.zip Flycast-$APPVEYOR_REPO_TAG_NAME-$GIT_SHORT_HASH.app
 
     artifacts:
-      - path: shell/apple/artifacts/Flycast-macOS-$GIT_SHORT_HASH.zip
+      - path: shell/apple/artifacts/Flycast-macOS-$APPVEYOR_REPO_TAG_NAME-$GIT_SHORT_HASH.zip
 
     deploy:
       release: $(APPVEYOR_REPO_TAG_NAME)
@@ -90,7 +90,7 @@ for:
       provider: GitHub
       auth_token:
         secure: FbT5TJnObEem2pmSSG85DLyLbsA/BwwDti//D4QVZ1H8zAFPSm5tKlXlIGMOHuVR
-      artifact: shell/apple/artifacts/Flycast-macOS-$GIT_SHORT_HASH.zip
+      artifact: shell/apple/artifacts/Flycast-macOS-$APPVEYOR_REPO_TAG_NAME-$GIT_SHORT_HASH.zip
       draft: false
       prerelease: false
       on:
