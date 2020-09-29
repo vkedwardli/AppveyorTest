@@ -39,11 +39,11 @@ for:
           
           mkdir artifacts
           
-          move %EXE_PATH% artifacts\flycast-win_%PLATFORM%-%APPVEYOR_REPO_TAG_NAME%-%GIT_SHORT_HASH%.exe
+          move %EXE_PATH% artifacts\Flycast-win_%PLATFORM%-%APPVEYOR_REPO_TAG_NAME%-%GIT_SHORT_HASH%.exe
 
     artifacts:
       - path: artifacts
-        name: flycast-win_$(PLATFORM)-$(APPVEYOR_REPO_TAG_NAME)-$(GIT_SHORT_HASH)
+        name: Flycast-win_$(PLATFORM)-$(APPVEYOR_REPO_TAG_NAME)-$(GIT_SHORT_HASH)
 
     deploy:
       release: $(APPVEYOR_REPO_TAG_NAME)
@@ -51,7 +51,7 @@ for:
       provider: GitHub
       auth_token:
         secure: FbT5TJnObEem2pmSSG85DLyLbsA/BwwDti//D4QVZ1H8zAFPSm5tKlXlIGMOHuVR
-      artifact: flycast-win_$(PLATFORM)-$(APPVEYOR_REPO_TAG_NAME)-$(GIT_SHORT_HASH)
+      artifact: Flycast-win_$(PLATFORM)-$(APPVEYOR_REPO_TAG_NAME)-$(GIT_SHORT_HASH)
       draft: false
       prerelease: false
       on:
