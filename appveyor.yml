@@ -83,3 +83,17 @@ for:
 
     artifacts:
       - path: shell/apple/artifacts/Flycast-macOS-$GIT_SHORT_HASH.zip
+
+    deploy:
+      release: flycast-gdxsv-v$(appveyor_build_version)
+      description: 'DC emulator flycast for gdxsv'
+      provider: GitHub
+      auth_token:
+        secure: ENCRYPTED_GITHUB_ACCESS_TOKEN
+      artifact: shell/apple/artifacts/Flycast-macOS-$GIT_SHORT_HASH.zip
+      draft: false
+      prerelease: false
+      on:
+        branch: master
+        APPVEYOR_REPO_TAG: true
+
