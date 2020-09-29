@@ -63,7 +63,7 @@ for:
     
     build_script:
       - sh: >-
-          cd shell\apple
+          cd shell/apple
           xcodebuild archive -workspace reicast.xcworkspace -scheme reicast-osx -archivePath flycast.xcarchive
 
     after_build:
