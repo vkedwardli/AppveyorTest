@@ -59,16 +59,12 @@ for:
   -
     matrix:
       only:
-        - image: macos
-
-    before_build:
-      - sh: >-
-          export BUILD_PATH=shell/apple
-
-          cd $BUILD_PATH
+        - image: macos      
     
     build_script:
       - sh: >-
+          cd shell/apple
+
           xcodebuild archive -workspace reicast.xcworkspace -scheme reicast-osx -archivePath flycast.xcarchive
 
     after_build:
@@ -76,4 +72,4 @@ for:
           mv flycast.xcarchive/Products/Applications/Flycast.app Flycast-$APPVEYOR_REPO_COMMIT.app
 
     artifacts:
-      - path: Flycast-$APPVEYOR_REPO_COMMIT.app
+      - path: shell/apple/Flycast-$APPVEYOR_REPO_COMMIT.app
