@@ -77,8 +77,6 @@ for:
       - sh: >-
           mv flycast.xcarchive/Products/Applications/Flycast.app Flycast-$GIT_SHORT_HASH.app
 
-          7z a Flycast-macOS-$GIT_SHORT_HASH.zip Flycast-$GIT_SHORT_HASH.app
-
     artifacts:
-      - path: shell/apple
-        name: Flycast-macOS-$GIT_SHORT_HASH.zip
+      - path: shell/apple/Flycast-$GIT_SHORT_HASH.app
+        name: Flycast-macOS-$GIT_SHORT_HASH
