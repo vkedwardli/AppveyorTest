@@ -46,12 +46,12 @@ for:
         name: flycast-win_$(PLATFORM)-$(GIT_SHORT_HASH)
 
     deploy:
-      release: flycast-gdxsv-v$(appveyor_build_version)
+      release: $(APPVEYOR_REPO_TAG_NAME)
       description: 'DC emulator flycast for gdxsv'
       provider: GitHub
       auth_token:
         secure: FbT5TJnObEem2pmSSG85DLyLbsA/BwwDti//D4QVZ1H8zAFPSm5tKlXlIGMOHuVR
-      artifact: artifacts\flycast-win_%PLATFORM%-%GIT_SHORT_HASH%.exe
+      artifact: flycast-win_%PLATFORM%-%GIT_SHORT_HASH%.exe
       draft: false
       prerelease: false
       on:
@@ -85,7 +85,7 @@ for:
       - path: shell/apple/artifacts/Flycast-macOS-$GIT_SHORT_HASH.zip
 
     deploy:
-      release: flycast-gdxsv-v$(appveyor_build_version)
+      release: $(APPVEYOR_REPO_TAG_NAME)
       description: 'DC emulator flycast for gdxsv'
       provider: GitHub
       auth_token:
