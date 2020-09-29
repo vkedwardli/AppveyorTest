@@ -12,7 +12,7 @@ for:
   matrix:
     only:
       - image: Visual Studio 2017
-      
+
   before_build:
     - cmd: >-
         set BUILD_PATH=shell\linux
@@ -53,4 +53,8 @@ for:
     on:
       branch: master
       APPVEYOR_REPO_TAG: true
+
+  matrix:
+    only:
+      - image: Visual Studio 2017
 
