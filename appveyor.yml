@@ -60,3 +60,12 @@ for:
     matrix:
       only:
         - image: macos
+    
+    build_script:
+      - cmd: >-
+          cd shell\apple
+          xcodebuild archive -workspace reicast.xcworkspace -scheme reicast-osx -archivePath flycast.xcarchive
+
+    artifacts:
+      - path: flycast.xcarchive/Products/Applications
+        name: Flycast.app
