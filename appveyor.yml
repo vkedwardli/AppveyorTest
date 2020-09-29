@@ -64,12 +64,14 @@ for:
     build_script:
       - sh: >-
           cd shell/apple
-          
+
           xcodebuild archive -workspace reicast.xcworkspace -scheme reicast-osx -archivePath flycast.xcarchive
 
     after_build:
       - sh: >-
           mv flycast.xcarchive/Products/Applications/Flycast.app Flycast-$APPVEYOR_REPO_COMMIT.app
+
+          ls
 
     artifacts:
       - path: Flycast-$APPVEYOR_REPO_COMMIT.app
