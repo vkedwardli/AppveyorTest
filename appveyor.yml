@@ -79,7 +79,7 @@ for:
       - sh: >-
           mv flycast.xcarchive/Products/Applications/Flycast.app Flycast-$APPVEYOR_REPO_TAG_NAME-$GIT_SHORT_HASH.app
 
-          7z a artifacts/Flycast-macOS-$APPVEYOR_REPO_TAG_NAME-$GIT_SHORT_HASH.zip Flycast-$APPVEYOR_REPO_TAG_NAME-$GIT_SHORT_HASH.app
+          7z a artifacts/Flycast-macOS-$APPVEYOR_REPO_TAG_NAME-$GIT_SHORT_HASH.zip Flycast-$APPVEYOR_REPO_TAG_NAME-$GIT_SHORT_HASH.app "How to Open.pdf"
 
     artifacts:
       - path: shell/apple/artifacts/Flycast-macOS-$APPVEYOR_REPO_TAG_NAME-$GIT_SHORT_HASH.zip
