@@ -23,7 +23,7 @@ for:
           
           set PATH=%EXTRA_PATH%;%PATH%
 
-          set GIT_SHORT_HASH=%APPVEYOR_REPO_COMMIT:~0,7%
+          if defined %APPVEYOR_REPO_TAG_NAME% ( set SUFFIX=%APPVEYOR_REPO_TAG_NAME%-%GIT_SHORT_HASH% ) else ( for /f "delims=" %%i in ('git describe --tags') do set SUFFIX=%%i )
           
           if not exist %BUILD_PATH% (mkdir %BUILD_PATH%)
          
@@ -39,11 +39,11 @@ for:
           
           mkdir artifacts
           
-          move %EXE_PATH% artifacts\Flycast-win_%PLATFORM%-%APPVEYOR_REPO_TAG_NAME%-%GIT_SHORT_HASH%.exe
+          move %EXE_PATH% artifacts\Flycast-win_%PLATFORM%-%SUFFIX%.exe
 
     artifacts:
       - path: artifacts
-        name: Flycast-win_$(PLATFORM)-$(APPVEYOR_REPO_TAG_NAME)-$(GIT_SHORT_HASH)
+        name: Flycast-win_$(PLATFORM)-$(SUFFIX)
 
     deploy:
       release: $(APPVEYOR_REPO_TAG_NAME)
@@ -51,7 +51,7 @@ for:
       provider: GitHub
       auth_token:
         secure: FbT5TJnObEem2pmSSG85DLyLbsA/BwwDti//D4QVZ1H8zAFPSm5tKlXlIGMOHuVR
-      artifact: Flycast-win_$(PLATFORM)-$(APPVEYOR_REPO_TAG_NAME)-$(GIT_SHORT_HASH)
+      artifact: Flycast-win_$(PLATFORM)-$(SUFFIX)
       draft: false
       prerelease: false
       on:
